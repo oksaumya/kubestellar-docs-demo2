@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFoS Program Details - KubeStellar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'space-dark': '#0a0a0a',
+                        'nebula-purple': '#8b5cf6',
+                        'nebula-blue': '#3b82f6',
+                        'cosmic-gray': '#1f2937'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'twinkle': 'twinkle 3s ease-in-out infinite',
+                        'orbit': 'orbit 20s linear infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-gradient {
+                @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500;
+            }
+            .bg-star-pattern {
+                background-image: radial-gradient(circle at 10px 10px, rgba(255, 255, 255, 0.1) 1px, transparent 0);
+                background-size: 40px 40px;
+            }
+            .animated-gradient {
+                background-size: 200% 200%;
+                animation: gradient 15s ease infinite;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+            }
+            .glow {
+                box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+            }
+            .filter-none {
+                filter: none;
+            }
+            .bg-blur {
+                backdrop-filter: blur(8px);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes orbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulsing {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .animated-gradient {
+            background-size: 200% 200%;
+            animation: gradient 15s ease infinite;
+        }
+
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        /* Dropdown styles */
+        [data-dropdown-menu] {
+            transition: all 0.3s ease;
+            transform-origin: top center;
+            display: none;
+        }
+        
+        [data-dropdown] {
+            position: relative;
+            z-index: 1000;
+        }
+        
+        [data-dropdown-menu] {
+            z-index: 1001;
+        }
+        
+        [data-dropdown] {
+            display: inline-block;
+        }
+        
+        [data-dropdown-menu] a {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+        
+        [data-dropdown-menu] a:hover {
+            background: rgba(59, 130, 246, 0.2) !important;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        [data-dropdown-button] {
+            user-select: none;
+        }
+        
+        .nav-link-hover {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link-hover:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .nav-link-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-link-hover:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link-hover svg {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link-hover:hover svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px) scale(1.1); }
+            50% { transform: translateY(-2px) scale(1.1); }
+        }
+        
+        .nav-link-hover:hover svg {
+            animation: iconFloat 2s ease-in-out infinite;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap">
+</head>
+<body class="bg-space-dark text-white overflow-x-hidden dark">
+    <!-- Enhanced Navigation Bar -->
+    <nav class="fixed w-full z-50 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900/90 backdrop-blur-md border-b border-gray-700/50 transition-all duration-300">
+        <!-- Dark base background -->
+        <div class="absolute inset-0 bg-[#0a0a0a]/90"></div>
+        
+        <!-- Starfield background -->
+        <div id="stars-container-nav" class="absolute inset-0 overflow-hidden"></div>
+        
+        <!-- Grid lines background -->
+        <div id="grid-lines-nav" class="absolute inset-0 opacity-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Left side: Logo -->
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="flex-shrink-0">
+                        <img src="https://docs.kubestellar.io/release-0.27.2/images/KubeStellar-with-Logo-transparent-v2.png" alt="KubeStellar Logo" class="h-10 w-auto">
+                    </a>
+                </div>
+
+                <!-- Center: Nav Links -->
+                <div class="hidden md:flex flex-1 justify-center">
+                    <div class="flex items-center space-x-8">
+                        <a href="../index.html#documentation" class="text-sm font-medium text-gray-300 hover:text-blue-400 transition-all duration-300 flex items-center space-x-1 px-3 py-2 rounded-lg hover:bg-blue-500/10 hover:shadow-lg hover:shadow-blue-500/20 hover:scale-105 transform group nav-link-hover">
+                            <div class="relative">
+                                <svg class="w-5 h-5 transition-all duration-300 group-hover:rotate-12 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <span>Docs</span>
+                        </a>
+                        <a href="../index.html#blog" class="text-sm font-medium text-gray-300 hover:text-purple-400 transition-all duration-300 flex items-center space-x-1 px-3 py-2 rounded-lg hover:bg-purple-500/10 hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105 transform group nav-link-hover">
+                            <div class="relative">
+                                <svg class="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2v-6a2 2 0 012-2h8z" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"></path>
+                                </svg>
+                            </div>
+                            <span>Blog</span>
+                        </a>
+                        <!-- Contribute Dropdown -->
+                        <div class="relative group" data-dropdown>
+                            <button type="button" class="text-sm font-medium text-gray-300 hover:text-emerald-400 transition-all duration-300 flex items-center space-x-1 px-3 py-2 rounded-lg hover:bg-emerald-500/10 hover:shadow-lg hover:shadow-emerald-500/20 hover:scale-105 transform nav-link-hover" data-dropdown-button aria-haspopup="true" aria-expanded="false">
+                                <div class="relative">
+                                    <svg class="w-5 h-5 transition-all duration-300 group-hover:-rotate-12 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"></path>
+                                    </svg>
+                                </div>
+                                <span>Contribute</span>
+                                <svg class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div class="absolute left-0 mt-2 w-56 bg-gray-800/90 backdrop-blur-md rounded-xl shadow-2xl py-2 ring-1 ring-gray-700/50 opacity-0 pointer-events-none transition-all duration-200 z-50" data-dropdown-menu style="display: none;">
+                                <a href="../index.html#join-in" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-emerald-900/30 rounded transition-all duration-200 hover:text-emerald-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                    </svg>
+                                    Join In
+                                </a>
+                                <a href="../index.html#contribute-handbook" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-emerald-900/30 rounded transition-all duration-200 hover:text-emerald-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                    Contribute Handbook
+                                </a>
+                                <a href="./index.html" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-cyan-900/30 rounded transition-all duration-200 hover:text-cyan-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
+                                    Programs
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right side: Controls -->
+                <div class="flex items-center space-x-4">
+                    <a href="./index.html" class="nav-link-hover bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 px-6 py-2 rounded-full text-white font-medium transition-all duration-200 shadow-lg">
+                        ← Back to Programs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Program Details Section -->
+    <section class="relative pt-24 pb-16 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white min-h-screen">
+        <div class="absolute inset-0 bg-[#0a0a0a]"></div>
+        <div id="stars-container-main" class="absolute inset-0 overflow-hidden"></div>
+        <div id="grid-lines-main" class="absolute inset-0 opacity-20"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <!-- Program Header -->
+            <div class="text-center mb-12">
+                <div class="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl mb-6 mx-auto">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
+                    </svg>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 text-gradient">IFoS</h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">Intern for Open Source - KubeStellar's Flagship Internship Program</p>
+            </div>
+
+            <!-- Program Details Grid -->
+            <div class="grid gap-8 lg:grid-cols-2 mb-12">
+                
+                <!-- Program Image/Logo -->
+                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+                    <h2 class="text-2xl font-bold mb-6 text-orange-400">Program Logo</h2>
+                    <div class="bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-xl p-12 flex items-center justify-center min-h-[300px]">
+                        <div class="text-center">
+                            <img src="./IFoS logo.png" alt="IFoS Logo" class="w-40 h-40 mx-auto mb-4 object-contain">
+                            <h3 class="text-2xl font-bold text-white">IFoS</h3>
+                            <p class="text-gray-400 mt-2">Intern for Open Source</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+                    <h2 class="text-2xl font-bold mb-6 text-orange-400">Description</h2>
+                    <div class="space-y-4 text-gray-300">
+                        <p>IFoS (Intern for Open Source) is KubeStellar's own flagship internship program designed to nurture talent and foster innovation in the cloud-native and multi-cluster Kubernetes ecosystem.</p>
+                        <p>This exclusive 3-month unpaid internship program provides hands-on experience working directly with KubeStellar's core development team on cutting-edge multi-cluster orchestration technologies.</p>
+                        <p>Successful completion of IFoS gives participants a significant advantage and preference when applying for paid internship opportunities through prestigious programs like GSoC, LFX Mentorship, and ESoC, creating a direct pathway to advanced open-source contributions.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Additional Details -->
+            <div class="grid gap-8 lg:grid-cols-3 mb-12">
+                
+                <!-- Overview -->
+                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+                    <h3 class="text-xl font-bold mb-4 text-orange-400">Overview</h3>
+                    <div class="space-y-3 text-gray-300">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>3-Month Internship</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>KubeStellar's Own Program</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Unpaid Position</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Pathway to Paid Programs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Eligibility Criteria -->
+                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+                    <h3 class="text-xl font-bold mb-4 text-orange-400">Eligibility Criteria</h3>
+                    <div class="space-y-3 text-gray-300">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Students & fresh graduates</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Basic Kubernetes knowledge</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Passion for open source</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Commitment to 3 months</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+                    <h3 class="text-xl font-bold mb-4 text-orange-400">Timeline</h3>
+                    <div class="space-y-3 text-gray-300">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Applications: Rolling basis</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Selection: 2 weeks</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Internship: 3 months</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                            <span>Certification: End of program</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Program Structure, Benefits, Resources -->
+            <div class="grid gap-8 lg:grid-cols-3 mb-12">
+                
+                <!-- Program Structure -->
+                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+                    <h3 class="text-xl font-bold mb-4 text-orange-400">Program Structure</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <div class="border-l-2 border-orange-400 pl-4">
+                            <h4 class="font-semibold text-white">Onboarding</h4>
+                            <p class="text-sm">KubeStellar technology overview and setup</p>
+                        </div>
+                        <div class="border-l-2 border-orange-400 pl-4">
+                            <h4 class="font-semibold text-white">Project Assignment</h4>
+                            <p class="text-sm">Work on real KubeStellar features</p>
+                        </div>
+                        <div class="border-l-2 border-orange-400 pl-4">
+                            <h4 class="font-semibold text-white">Mentorship</h4>
+                            <p class="text-sm">Direct guidance from core team</p>
+                        </div>
+                        <div class="border-l-2 border-orange-400 pl-4">
+                            <h4 class="font-semibold text-white">Completion</h4>
+                            <p class="text-sm">Project delivery and evaluation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How to Apply -->
+                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+                    <h3 class="text-xl font-bold mb-4 text-orange-400">How to Apply</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <div class="flex items-start space-x-3">
+                            <span class="bg-orange-400 text-black rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mt-0.5">1</span>
+                            <div>
+                                <h4 class="font-semibold text-white">Registration</h4>
+                                <p class="text-sm">Register on the official website</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="bg-orange-400 text-black rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mt-0.5">2</span>
+                            <div>
+                                <h4 class="font-semibold text-white">Submit Proposal</h4>
+                                <p class="text-sm">Submit talk or workshop proposals</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="bg-orange-400 text-black rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mt-0.5">3</span>
+                            <div>
+                                <h4 class="font-semibold text-white">Attend</h4>
+                                <p class="text-sm">Participate in the conference</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefits -->
+                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
+                    <h3 class="text-xl font-bold mb-4 text-orange-400">Benefits</h3>
+                    <div class="space-y-3 text-gray-300">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <span>Community Networking</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <span>Knowledge Sharing</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <span>Career Opportunities</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            <span>Technical Learning</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Resources Section -->
+            <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-orange-400">Resources</h3>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                    <a href="https://github.com/kubestellar/kubestellar" class="group bg-gradient-to-br from-orange-500/10 to-red-600/10 rounded-xl p-6 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-300">
+                        <svg class="w-8 h-8 text-orange-400 mb-3 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        <h4 class="font-semibold text-white mb-2">Apply Now</h4>
+                        <p class="text-gray-400 text-sm">Submit your application through GitHub</p>
+                    </a>
+                    
+                    <a href="https://github.com/kubestellar/kubestellar/wiki" class="group bg-gradient-to-br from-orange-500/10 to-red-600/10 rounded-xl p-6 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-300">
+                        <svg class="w-8 h-8 text-orange-400 mb-3 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        <h4 class="font-semibold text-white mb-2">Documentation</h4>
+                        <p class="text-gray-400 text-sm">Learn about KubeStellar's architecture</p>
+                    </a>
+                    
+                    <a href="https://kubestellar.io/community/" class="group bg-gradient-to-br from-orange-500/10 to-red-600/10 rounded-xl p-6 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-300">
+                        <svg class="w-8 h-8 text-orange-400 mb-3 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <h4 class="font-semibold text-white mb-2">Community</h4>
+                        <p class="text-gray-400 text-sm">Join the KubeStellar community</p>
+                    </a>
+                    
+                    <a href="https://github.com/kubestellar/kubestellar/blob/main/docs/content/Contribution%20guidelines/_index.md" class="group bg-gradient-to-br from-orange-500/10 to-red-600/10 rounded-xl p-6 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-300">
+                        <svg class="w-8 h-8 text-orange-400 mb-3 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                        <h4 class="font-semibold text-white mb-2">Guidelines</h4>
+                        <p class="text-gray-400 text-sm">Contribution guidelines and best practices</p>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden pt-16 pb-8">
+        <div class="absolute inset-0 bg-[#0a0a0a]"></div>
+        <div id="stars-container-footer" class="absolute inset-0 overflow-hidden"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold text-gradient">KubeStellar</span>
+                </div>
+                <p class="text-gray-400 text-sm">© 2024 KubeStellar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function createStarfield(starsContainer) {
+                if (!starsContainer) return;
+                
+                const numStars = 100;
+                for (let i = 0; i < numStars; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'absolute bg-white rounded-full';
+                    
+                    const size = Math.random() * 2 + 1;
+                    const x = Math.random() * 100;
+                    const y = Math.random() * 100;
+                    const opacity = Math.random() * 0.8 + 0.2;
+                    const duration = Math.random() * 3 + 2;
+                    
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    star.style.left = `${x}%`;
+                    star.style.top = `${y}%`;
+                    star.style.opacity = opacity;
+                    star.style.animation = `twinkle ${duration}s ease-in-out infinite`;
+                    star.style.animationDelay = `${Math.random() * 3}s`;
+                    
+                    starsContainer.appendChild(star);
+                }
+            }
+            
+            createStarfield(document.getElementById('stars-container-nav'));
+            createStarfield(document.getElementById('stars-container-main'));
+            createStarfield(document.getElementById('stars-container-footer'));
+        });
+    </script>
+</body>
+</html>
