@@ -123,11 +123,9 @@
         
         /* Dropdown styles */
         [data-dropdown-menu] {
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-        }
-        
-        [data-dropdown-menu]:not([style*="display: block"]) {
-            display: none !important;
+            transition: all 0.3s ease;
+            transform-origin: top center;
+            display: none;
         }
         
         /* Ensure dropdowns are above other content */
@@ -149,11 +147,66 @@
         [data-dropdown-menu] a {
             cursor: pointer;
             user-select: none;
+            transition: all 0.2s ease;
+        }
+        
+        /* Enhanced dropdown menu item hover effects */
+        [data-dropdown-menu] a:hover {
+            background: rgba(59, 130, 246, 0.2) !important;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
         }
         
         /* Prevent text selection on dropdown buttons */
         [data-dropdown-button] {
             user-select: none;
+        }
+        
+        /* Enhanced hover effects for navigation */
+        .nav-link-hover {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link-hover:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .nav-link-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-link-hover:hover::before {
+            left: 100%;
+        }
+        
+        /* Icon effects */
+        .nav-link-hover svg {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link-hover:hover svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+        
+        /* Enhanced icon animations */
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px) scale(1.1); }
+            50% { transform: translateY(-2px) scale(1.1); }
+        }
+        
+        .nav-link-hover:hover svg {
+            animation: iconFloat 2s ease-in-out infinite;
         }
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap">
@@ -182,30 +235,100 @@
                 <!-- Center: Nav Links -->
                 <div class="hidden md:flex flex-1 justify-center">
                     <div class="flex items-center space-x-8">
-                        <a href="#documentation" class="text-sm font-medium text-gray-300 hover:text-blue-400 transition flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                            </svg>
+                        <a href="#documentation" class="text-sm font-medium text-gray-300 hover:text-blue-400 transition-all duration-300 flex items-center space-x-1 px-3 py-2 rounded-lg hover:bg-blue-500/10 hover:shadow-lg hover:shadow-blue-500/20 hover:scale-105 transform group nav-link-hover">
+                            <div class="relative">
+                                <svg class="w-5 h-5 transition-all duration-300 group-hover:rotate-12 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
                             <span>Docs</span>
                         </a>
-                        <a href="#blog" class="text-sm font-medium text-gray-300 hover:text-blue-400 transition flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                            </svg>
+                        <a href="#blog" class="text-sm font-medium text-gray-300 hover:text-purple-400 transition-all duration-300 flex items-center space-x-1 px-3 py-2 rounded-lg hover:bg-purple-500/10 hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105 transform group nav-link-hover">
+                            <div class="relative">
+                                <svg class="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2v-6a2 2 0 012-2h8z" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"></path>
+                                </svg>
+                            </div>
                             <span>Blog</span>
                         </a>
-                        <a href="#contribute" class="text-sm font-medium text-gray-300 hover:text-blue-400 transition flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                            </svg>
-                            <span>Contribute</span>
-                        </a>
-                        <a href="#community" class="text-sm font-medium text-gray-300 hover:text-blue-400 transition flex items-center space-x-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                            <span>Community</span>
-                        </a>
+                        <!-- Contribute Dropdown -->
+                        <div class="relative group" data-dropdown>
+                            <button type="button" class="text-sm font-medium text-gray-300 hover:text-emerald-400 transition-all duration-300 flex items-center space-x-1 px-3 py-2 rounded-lg hover:bg-emerald-500/10 hover:shadow-lg hover:shadow-emerald-500/20 hover:scale-105 transform nav-link-hover" data-dropdown-button aria-haspopup="true" aria-expanded="false">
+                                <div class="relative">
+                                    <svg class="w-5 h-5 transition-all duration-300 group-hover:-rotate-12 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"></path>
+                                    </svg>
+                                </div>
+                                <span>Contribute</span>
+                                <svg class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div class="absolute left-0 mt-2 w-56 bg-gray-800/90 backdrop-blur-md rounded-xl shadow-2xl py-2 ring-1 ring-gray-700/50 opacity-0 pointer-events-none transition-all duration-200 z-50" data-dropdown-menu style="display: none;">
+                                <a href="#join-in" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-emerald-900/30 rounded transition-all duration-200 hover:text-emerald-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                    </svg>
+                                    Join In
+                                </a>
+                                <a href="#contribute-handbook" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-emerald-900/30 rounded transition-all duration-200 hover:text-emerald-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                    Contribute Handbook
+                                </a>
+                                <a href="#security" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-emerald-900/30 rounded transition-all duration-200 hover:text-emerald-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                    </svg>
+                                    Security
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Community Dropdown -->
+                        <div class="relative group" data-dropdown>
+                            <button type="button" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300 flex items-center space-x-1 px-3 py-2 rounded-lg hover:bg-cyan-500/10 hover:shadow-lg hover:shadow-cyan-500/20 hover:scale-105 transform nav-link-hover" data-dropdown-button aria-haspopup="true" aria-expanded="false">
+                                <div class="relative">
+                                    <svg class="w-5 h-5 transition-all duration-300 group-hover:scale-125 group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                </div>
+                                <span>Community</span>
+                                <svg class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div class="absolute left-0 mt-2 w-56 bg-gray-800/90 backdrop-blur-md rounded-xl shadow-2xl py-2 ring-1 ring-gray-700/50 opacity-0 pointer-events-none transition-all duration-200 z-50" data-dropdown-menu style="display: none;">
+                                <a href="#get-involved" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-cyan-900/30 rounded transition-all duration-200 hover:text-cyan-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                    </svg>
+                                    Get Involved
+                                </a>
+                                <a href="#programs" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-cyan-900/30 rounded transition-all duration-200 hover:text-cyan-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                    </svg>
+                                    Programs
+                                </a>
+                                <a href="#ladder" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-cyan-900/30 rounded transition-all duration-200 hover:text-cyan-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                    </svg>
+                                    Ladder
+                                </a>
+                                <a href="#contact-us" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-cyan-900/30 rounded transition-all duration-200 hover:text-cyan-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Contact Us
+                                </a>
+                                <a href="#partners" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-cyan-900/30 rounded transition-all duration-200 hover:text-cyan-300 hover:shadow-md">
+                                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                    Partners
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -213,54 +336,51 @@
                 <div class="flex items-center space-x-4">
                     <!-- Version Dropdown -->
                     <div class="relative group" data-dropdown>
-                        <button type="button" class="flex items-center text-sm font-medium text-gray-300 hover:text-blue-400 transition focus:outline-none" data-dropdown-button aria-haspopup="true" aria-expanded="false">
-                            3.8.1
-                            <svg class="ml-1 h-4 w-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        <button type="button" class="flex items-center text-sm font-medium text-gray-300 hover:text-blue-400 transition-all duration-300 focus:outline-none px-3 py-2 rounded-lg hover:bg-blue-500/10 hover:shadow-lg hover:shadow-blue-500/20 hover:scale-105 transform nav-link-hover" data-dropdown-button aria-haspopup="true" aria-expanded="false">
+                            <span class="font-medium">3.8.1</span>
+                            <svg class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                         </button>
                         <div class="absolute right-0 mt-2 w-48 bg-gray-800/90 backdrop-blur-md rounded-xl shadow-2xl py-2 ring-1 ring-gray-700/50 opacity-0 pointer-events-none transition-all duration-200 z-50" data-dropdown-menu style="display: none;">
-                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">3.8.1 (Current)</a>
-                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">3.8.0</a>
-                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">All versions</a>
+                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition-all duration-200 hover:text-blue-300 hover:shadow-md">3.8.1 (Current)</a>
+                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition-all duration-200 hover:text-blue-300 hover:shadow-md">3.8.0</a>
+                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition-all duration-200 hover:text-blue-300 hover:shadow-md">All versions</a>
                         </div>
                     </div>
                     
                     <!-- Language Dropdown -->
                     <div class="relative group" data-dropdown>
-                        <button type="button" class="flex items-center text-sm font-medium text-gray-300 hover:text-blue-400 transition focus:outline-none" data-dropdown-button aria-haspopup="true" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.255 12.422L20.745 12.422" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12.000 3.255C12.000 3.255 15.000 7.828 15.000 12.422C15.000 16.916 12.000 21.59 12.000 21.59" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12.000 3.255C12.000 3.255 9.000 7.828 9.000 12.422C9.000 16.916 12.000 21.59 12.000 21.59" />
+                        <button type="button" class="flex items-center text-sm font-medium text-gray-300 hover:text-purple-400 transition-all duration-300 focus:outline-none px-3 py-2 rounded-lg hover:bg-purple-500/10 hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105 transform nav-link-hover" data-dropdown-button aria-haspopup="true" aria-expanded="false">
+                            <svg class="h-5 w-5 mr-1 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
                             </svg>
-                            English
-                            <svg class="ml-1 h-4 w-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            <span class="font-medium">English</span>
+                            <svg class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                         </button>
                         <div class="absolute right-0 mt-2 w-40 bg-gray-800/90 backdrop-blur-md rounded-xl shadow-2xl py-2 ring-1 ring-gray-700/50 opacity-0 pointer-events-none transition-all duration-200 z-50" data-dropdown-menu style="display: none;">
-                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">English</a>
-                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">日本語</a>
-                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">简体中文</a>
+                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-purple-900/30 rounded transition-all duration-200 hover:text-purple-300 hover:shadow-md">English</a>
+                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-purple-900/30 rounded transition-all duration-200 hover:text-purple-300 hover:shadow-md">日本語</a>
+                            <a href="#" class="block px-5 py-2 text-sm text-gray-300 hover:bg-purple-900/30 rounded transition-all duration-200 hover:text-purple-300 hover:shadow-md">简体中文</a>
                         </div>
                     </div>
                     
                     <!-- GitHub Dropdown -->
                     <div class="relative group" data-dropdown>
-                        <button type="button" tabindex="0" class="hover:text-blue-400 transition flex items-center" aria-label="GitHub" data-dropdown-button aria-haspopup="true" aria-expanded="false">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
-                            <svg class="ml-1 h-4 w-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        <button type="button" tabindex="0" class="hover:text-emerald-400 transition-all duration-300 flex items-center px-3 py-2 rounded-lg hover:bg-emerald-500/10 hover:shadow-lg hover:shadow-emerald-500/20 hover:scale-105 transform nav-link-hover" aria-label="GitHub" data-dropdown-button aria-haspopup="true" aria-expanded="false">
+                            <svg class="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+                            <svg class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                         </button>
                         <div class="absolute right-0 mt-2 w-56 bg-gray-800/90 backdrop-blur-md rounded-xl shadow-2xl py-2 ring-1 ring-gray-700/50 opacity-0 pointer-events-none transition-all duration-200 z-50" data-dropdown-menu style="display: none;">
-                            <a href="https://github.com/kubestellar/kubestellar" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">
+                            <a href="https://github.com/kubestellar/kubestellar" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-emerald-900/30 rounded transition-all duration-200 hover:text-emerald-300 hover:shadow-md">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2C5.58 2 2 5.58 2 10c0 3.87 2.69 7.13 6.39 7.93.47.09.64-.2.64-.45 0-.22-.01-.94-.01-1.7-2.6.57-3.15-1.25-3.15-1.25-.43-1.09-1.05-1.38-1.05-1.38-.86-.59.07-.58.07-.58.95.07 1.45.98 1.45.98.85 1.45 2.23 1.03 2.78.79.09-.62.33-1.03.6-1.27-2.22-.25-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
                                 Star
                                 <span class="ml-auto bg-gray-700 text-gray-300 text-xs rounded px-2 py-0.5">12.3k</span>
                             </a>
-                            <a href="https://github.com/kubestellar/kubestellar/fork" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">
+                            <a href="https://github.com/kubestellar/kubestellar/fork" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-emerald-900/30 rounded transition-all duration-200 hover:text-emerald-300 hover:shadow-md">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a3 3 0 106 0 3 3 0 00-6 0zm0 2a2 2 0 114 0 2 2 0 01-4 0zm10 10a3 3 0 11-6 0 3 3 0 016 0zm-2-2a2 2 0 100 4 2 2 0 000-4zm-6 2a2 2 0 100-4 2 2 0 000 4zm8-2a2 2 0 100-4 2 2 0 000 4z"/></svg>
                                 Fork
                                 <span class="ml-auto bg-gray-700 text-gray-300 text-xs rounded px-2 py-0.5">2.1k</span>
                             </a>
-                            <a href="https://github.com/kubestellar/kubestellar/watchers" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-blue-900/30 rounded transition">
+                            <a href="https://github.com/kubestellar/kubestellar/watchers" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-emerald-900/30 rounded transition-all duration-200 hover:text-emerald-300 hover:shadow-md">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2C5.454 2 1.73 5.11.458 9.09a1.5 1.5 0 000 1.82C1.73 14.89 5.454 18 10 18s8.27-3.11 9.542-7.09a1.5 1.5 0 000-1.82C18.27 5.11 14.546 2 10 2zm0 14c-3.866 0-7.09-2.61-8.13-6C2.91 6.61 6.134 4 10 4s7.09 2.61 8.13 6c-1.04 3.39-4.264 6-8.13 6zm0-8a2 2 0 110 4 2 2 0 010-4z"/></svg>
                                 Watch
                                 <span class="ml-auto bg-gray-700 text-gray-300 text-xs rounded px-2 py-0.5">350</span>
@@ -268,11 +388,7 @@
                         </div>
                     </div>
                     
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="p-2 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none transition-all duration-200" aria-label="Toggle theme">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-                    </button>
+
                     
                     <!-- Mobile menu button -->
                     <button class="md:hidden p-2 rounded focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Open menu">
@@ -284,7 +400,7 @@
     </nav>
 
     <!-- Revolutionary Hero Section: Interactive Kubernetes Universe -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white min-h-screen flex items-center">
+    <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white min-h-[85vh] flex items-center">
         <!-- Animated Background Universe -->
         <div class="absolute inset-0 z-0">
             <!-- Dynamic Star Field -->
@@ -316,11 +432,11 @@
         </div>
         
         <!-- Main Content Container -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[85vh]">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
                 
                 <!-- Left Column: Interactive Content -->
-                <div class="hero-content space-y-10">
+                <div class="hero-content space-y-6">
                     
                     <!-- Animated Status Badge -->
                     <div class="status-badge-container">
@@ -331,8 +447,8 @@
                     </div>
                     
                     <!-- Dynamic Main Heading -->
-                    <div class="heading-container space-y-6">
-                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none">
+                    <div class="heading-container space-y-4">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none">
                             <span class="block text-white mb-3 animate-text-reveal">
                                 <span class="text-gradient">Multi-Cluster</span>
                             </span>
@@ -344,15 +460,15 @@
                             </span>
                         </h1>
                         
-                        <p class="text-xl sm:text-2xl text-gray-300 max-w-2xl leading-relaxed animate-fade-in-up opacity-0" style="animation-delay: 0.6s; animation-fill-mode: forwards;">
+                        <p class="text-lg sm:text-xl text-gray-300 max-w-2xl leading-relaxed animate-fade-in-up opacity-0" style="animation-delay: 0.6s; animation-fill-mode: forwards;">
                             Experience the future of cloud-native orchestration. KubeStellar revolutionizes multi-cluster management with AI-powered automation and real-time intelligence.
                         </p>
                     </div>
                     
                     <!-- Interactive Command Center -->
                     <div class="command-center-container">
-                        <div class="bg-black/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-8 shadow-2xl animate-command-glow">
-                            <div class="terminal-header flex items-center space-x-3 mb-6">
+                        <div class="bg-black/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl animate-command-glow">
+                            <div class="terminal-header flex items-center space-x-3 mb-4">
                                 <div class="terminal-controls flex space-x-2">
                                     <div class="w-4 h-4 rounded-full bg-red-500 animate-pulse"></div>
                                     <div class="w-4 h-4 rounded-full bg-yellow-500 animate-pulse" style="animation-delay: 0.2s;"></div>
@@ -366,14 +482,14 @@
                                 </div>
                             </div>
                             
-                            <div class="terminal-content space-y-4 font-mono text-sm">
+                            <div class="terminal-content space-y-3 font-mono text-sm">
                                 <div class="command-line animate-command-typing">
                                     <span class="text-green-400 mr-3">$</span>
                                     <span class="typing-text text-blue-300">kubectl kubestellar deploy --multi-cluster --ai-optimized</span>
                                     <span class="typing-cursor ml-1 bg-blue-300 w-0.5 h-6 animate-blink"></span>
                                 </div>
                                 
-                                <div class="command-output space-y-3 ml-6 opacity-0 animate-fade-in" style="animation-delay: 0.8s; animation-fill-mode: forwards;">
+                                <div class="command-output space-y-2 ml-6 opacity-0 animate-fade-in" style="animation-delay: 0.8s; animation-fill-mode: forwards;">
                                     <div class="output-line animate-slide-in-left" style="animation-delay: 1s;">
                                         <span class="text-cyan-400 font-bold">AI</span>
                                         <span class="text-gray-300 ml-2">Analyzing cluster topology and workload patterns...</span>
@@ -431,11 +547,11 @@
                     </div>
                     
                     <!-- Interactive Stats Dashboard -->
-                    <div class="stats-dashboard grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10">
-                        <div class="stat-card stat-card-1 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-md rounded-2xl p-6 border border-blue-500/30 relative group overflow-hidden animate-stat-float" style="animation-delay: 0.3s;">
+                    <div class="stats-dashboard grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
+                        <div class="stat-card stat-card-1 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-md rounded-2xl p-4 border border-blue-500/30 relative group overflow-hidden animate-stat-float" style="animation-delay: 0.3s;">
                             <div class="stat-glow"></div>
                             <div class="relative z-10">
-                                <div class="flex items-center space-x-3 mb-3">
+                                <div class="flex items-center space-x-3 mb-2">
                                     <div class="stat-icon">
                                         <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -448,10 +564,10 @@
                             </div>
                         </div>
                         
-                        <div class="stat-card stat-card-2 bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-md rounded-2xl p-6 border border-purple-500/30 relative group overflow-hidden animate-stat-float" style="animation-delay: 0.5s;">
+                        <div class="stat-card stat-card-2 bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-md rounded-2xl p-4 border border-purple-500/30 relative group overflow-hidden animate-stat-float" style="animation-delay: 0.5s;">
                             <div class="stat-glow"></div>
                             <div class="relative z-10">
-                                <div class="flex items-center space-x-3 mb-3">
+                                <div class="flex items-center space-x-3 mb-2">
                                     <div class="stat-icon">
                                         <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
@@ -464,10 +580,10 @@
                             </div>
                         </div>
                         
-                        <div class="stat-card stat-card-3 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 backdrop-blur-md rounded-2xl p-6 border border-emerald-500/30 relative group overflow-hidden animate-stat-float" style="animation-delay: 0.7s;">
+                        <div class="stat-card stat-card-3 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 backdrop-blur-md rounded-2xl p-4 border border-emerald-500/30 relative group overflow-hidden animate-stat-float" style="animation-delay: 0.7s;">
                             <div class="stat-glow"></div>
                             <div class="relative z-10">
-                                <div class="flex items-center space-x-3 mb-3">
+                                <div class="flex items-center space-x-3 mb-2">
                                     <div class="stat-icon">
                                         <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -483,7 +599,7 @@
                 </div>
                 
                 <!-- Right Column: Astronaut Mission Control Scene -->
-                <div class="mission-control-scene relative h-[600px]" data-aos="fade-left">
+                <div class="mission-control-scene relative h-[500px]" data-aos="fade-left">
                     <!-- Main scene container with perspective -->
                     <div class="absolute inset-0 scene-container perspective-1000">
                         <!-- Control Room Background -->
@@ -2806,8 +2922,8 @@ metadata:
                             <div class="flex items-center">
                             <div class="flex-shrink-0 h-12 w-12 rounded-full bg-purple-900/30 flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                    </svg>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
                                 </div>
                             <div class="ml-5">
                                 <h3 class="text-lg font-medium text-white">Join Our Community</h3>
@@ -3118,30 +3234,7 @@ metadata:
         </script>
     </footer>
 
-    <!-- Dark Mode Toggle Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Check for saved theme preference or use device preference
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            
-            // Force dark mode by default
-            document.documentElement.classList.add('dark');
-            localStorage.theme = 'dark';
-            
-            // Toggle theme on button click
-            themeToggleBtn.addEventListener('click', () => {
-                // Toggle class on document element
-                document.documentElement.classList.toggle('dark');
-                
-                // Update local storage
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.theme = 'dark';
-                } else {
-                    localStorage.theme = 'light';
-                }
-            });
-        });
-    </script>
+
     <!-- Working Dropdown Menu Script -->
     <script>
         // Wait for DOM to be ready
@@ -3223,12 +3316,9 @@ metadata:
                     }
                 });
                 
-                // Hover handlers for desktop
-                let hoverTimeout;
-                
+                // Hover handlers for desktop - No timers, pure hover behavior
                 container.addEventListener('mouseenter', function() {
                     console.log(`Dropdown ${index}: Container mouse enter`);
-                    clearTimeout(hoverTimeout);
                     menu.style.display = 'block';
                     menu.style.opacity = '1';
                     menu.style.visibility = 'visible';
@@ -3244,19 +3334,21 @@ metadata:
                         return;
                     }
                     
-                    hoverTimeout = setTimeout(() => {
-                        console.log(`Dropdown ${index}: Closing after timeout`);
-                        menu.style.display = 'none';
-                        menu.style.opacity = '0';
-                        menu.style.visibility = 'hidden';
-                        button.setAttribute('aria-expanded', 'false');
-                    }, 300);
+                    // Close immediately if not moving to menu/bridge
+                    console.log(`Dropdown ${index}: Closing immediately`);
+                    menu.style.display = 'none';
+                    menu.style.opacity = '0';
+                    menu.style.visibility = 'hidden';
+                    button.setAttribute('aria-expanded', 'false');
                 });
                 
                 // Keep menu open when hovering over menu items
                 menu.addEventListener('mouseenter', function() {
                     console.log(`Dropdown ${index}: Menu mouse enter`);
-                    clearTimeout(hoverTimeout);
+                    menu.style.display = 'block';
+                    menu.style.opacity = '1';
+                    menu.style.visibility = 'visible';
+                    button.setAttribute('aria-expanded', 'true');
                 });
                 
                 menu.addEventListener('mouseleave', function(e) {
@@ -3268,19 +3360,21 @@ metadata:
                         return;
                     }
                     
-                    hoverTimeout = setTimeout(() => {
-                        console.log(`Dropdown ${index}: Closing menu after timeout`);
-                        menu.style.display = 'none';
-                        menu.style.opacity = '0';
-                        menu.style.visibility = 'hidden';
-                        button.setAttribute('aria-expanded', 'false');
-                    }, 300);
+                    // Close immediately if not moving back to container/bridge
+                    console.log(`Dropdown ${index}: Closing menu immediately`);
+                    menu.style.display = 'none';
+                    menu.style.opacity = '0';
+                    menu.style.visibility = 'hidden';
+                    button.setAttribute('aria-expanded', 'false');
                 });
                 
-                // Bridge hover events
+                // Bridge hover events - No timers
                 bridge.addEventListener('mouseenter', function() {
                     console.log(`Dropdown ${index}: Bridge mouse enter`);
-                    clearTimeout(hoverTimeout);
+                    menu.style.display = 'block';
+                    menu.style.opacity = '1';
+                    menu.style.visibility = 'visible';
+                    button.setAttribute('aria-expanded', 'true');
                 });
                 
                 bridge.addEventListener('mouseleave', function(e) {
@@ -3291,13 +3385,12 @@ metadata:
                         return;
                     }
                     
-                    hoverTimeout = setTimeout(() => {
-                        console.log(`Dropdown ${index}: Closing after bridge timeout`);
-                        menu.style.display = 'none';
-                        menu.style.opacity = '0';
-                        menu.style.visibility = 'hidden';
-                        button.setAttribute('aria-expanded', 'false');
-                    }, 300);
+                    // Close immediately if not moving to container/menu
+                    console.log(`Dropdown ${index}: Closing after bridge leave`);
+                    menu.style.display = 'none';
+                    menu.style.opacity = '0';
+                    menu.style.visibility = 'hidden';
+                    button.setAttribute('aria-expanded', 'false');
                 });
             });
             
