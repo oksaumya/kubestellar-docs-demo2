@@ -61,60 +61,75 @@
     <!-- Main Content -->
     <main class="pt-24">
         <section class="py-16">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
                     <img src="IFoS logo.png" alt="IFoS Logo" class="h-32 mx-auto mb-6">
-                    <h1 class="text-4xl font-extrabold text-gradient">Interns for Open Source (IFoS)</h1>
+                    <h1 class="text-5xl font-extrabold text-gradient">Interns for Open Source (IFoS)</h1>
                 </div>
 
-                <div class="mt-12 space-y-8">
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Description</h2>
-                        <p class="text-gray-400 mt-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Description Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Description</h2>
+                        <p class="text-gray-400">
                             Interns for Open Source (IFoS) is a unique, unpaid internship program created by KubeStellar. It is designed for individuals who are passionate about open source and want to gain hands-on experience with a cutting-edge project.
                         </p>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Overview</h2>
-                        <p class="text-gray-400 mt-2">
+
+                    <!-- Overview Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Overview</h2>
+                        <p class="text-gray-400">
                             This 3-month program provides a direct pathway into the KubeStellar community. Participants work on meaningful projects and are mentored by our core developers.
                         </p>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Eligibility Criteria</h2>
-                        <p class="text-gray-400 mt-2">
+
+                    <!-- Eligibility Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Eligibility Criteria</h2>
+                        <p class="text-gray-400">
                             We welcome applications from anyone with a strong interest in Kubernetes, multi-cluster orchestration, and open source. Basic knowledge of Go and container technologies is a plus.
                         </p>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Timeline</h2>
-                        <p class="text-gray-400 mt-2">
+
+                    <!-- Timeline Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Timeline</h2>
+                        <p class="text-gray-400">
                             IFoS is a rolling program. Applications are accepted year-round, and internships start based on project availability and applicant schedules.
                         </p>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Program Structure</h2>
-                        <p class="text-gray-400 mt-2">
+
+                    <!-- Structure Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Program Structure</h2>
+                        <p class="text-gray-400">
                             Interns are paired with a mentor and integrated into one of our development teams. The program is flexible, allowing for part-time or full-time commitment.
                         </p>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">How to Apply</h2>
-                        <p class="text-gray-400 mt-2">
+
+                    <!-- How to Apply Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">How to Apply</h2>
+                        <p class="text-gray-400">
                             To apply, please send your resume and a brief statement of interest to our community email. We also encourage you to start contributing to our GitHub repository.
                         </p>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Benefits</h2>
-                        <p class="text-gray-400 mt-2">
+                    
+                    <!-- Benefits Card -->
+                    <div class="md:col-span-2 bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Benefits</h2>
+                        <p class="text-gray-400">
                             While this is an unpaid program, successful graduates receive a certificate of completion, a letter of recommendation, and are given priority consideration for any future paid mentorship programs like GSoC or LFX.
                         </p>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Resources</h2>
-                        <ul class="list-disc list-inside text-gray-400 mt-2">
-                            <li><a href="https://github.com/kubestellar/kubestellar" target="_blank" class="text-blue-400 hover:underline">KubeStellar GitHub</a></li>
-                            <li><a href="https://kubestellar.io/community" class="text-blue-400 hover:underline">KubeStellar Community Page</a></li>
+
+                    <!-- Resources Card -->
+                    <div class="md:col-span-2 bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Resources</h2>
+                        <ul class="list-disc list-inside text-blue-400 mt-2 space-y-1">
+                            <li><a href="https://github.com/kubestellar/kubestellar" target="_blank" class="hover:underline">KubeStellar GitHub</a></li>
+                            <li><a href="https://kubestellar.io/community" class="hover:underline">KubeStellar Community Page</a></li>
                         </ul>
                     </div>
                 </div>
