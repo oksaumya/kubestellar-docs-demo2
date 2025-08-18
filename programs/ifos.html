@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFoS - KubeStellar Programs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e' },
+                        space: { dark: '#0f172a', light: '#f8fafc', accent: '#7c3aed' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #8B5CF6, #3B82F6);
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap">
+</head>
+<body class="bg-space-dark text-white dark">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden">
+        <!-- Dark base background -->
+        <div class="absolute inset-0 bg-[#0a0a0a]"></div>
+        
+        <!-- Starfield background -->
+        <div id="stars-container-nav" class="absolute inset-0 overflow-hidden"></div>
+        
+        <!-- Grid lines background -->
+        <div id="grid-lines-nav" class="absolute inset-0 opacity-20"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-2xl font-bold tracking-wider">KubeStellar</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="../index.html#about" class="hover:text-purple-300 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="../index.html#features" class="hover:text-purple-300 px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                        <a href="index.html" class="text-purple-300 px-3 py-2 rounded-md text-sm font-medium">Programs</a>
+                        <a href="../index.html#contact" class="hover:text-purple-300 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24">
+        <section class="py-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <img src="IFoS logo.png" alt="IFoS Logo" class="h-32 mx-auto mb-6">
+                    <h1 class="text-5xl font-extrabold text-gradient">Interns for Open Source (IFoS)</h1>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Description Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Description</h2>
+                        <p class="text-gray-400">
+                            Interns for Open Source (IFoS) is a unique, unpaid internship program created by KubeStellar. It is designed for individuals who are passionate about open source and want to gain hands-on experience with a cutting-edge project.
+                        </p>
+                    </div>
+
+                    <!-- Overview Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Overview</h2>
+                        <p class="text-gray-400">
+                            This 3-month program provides a direct pathway into the KubeStellar community. Participants work on meaningful projects and are mentored by our core developers.
+                        </p>
+                    </div>
+
+                    <!-- Eligibility Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Eligibility Criteria</h2>
+                        <p class="text-gray-400">
+                            We welcome applications from anyone with a strong interest in Kubernetes, multi-cluster orchestration, and open source. Basic knowledge of Go and container technologies is a plus.
+                        </p>
+                    </div>
+
+                    <!-- Timeline Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Timeline</h2>
+                        <p class="text-gray-400">
+                            IFoS is a rolling program. Applications are accepted year-round, and internships start based on project availability and applicant schedules.
+                        </p>
+                    </div>
+
+                    <!-- Structure Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Program Structure</h2>
+                        <p class="text-gray-400">
+                            Interns are paired with a mentor and integrated into one of our development teams. The program is flexible, allowing for part-time or full-time commitment.
+                        </p>
+                    </div>
+
+                    <!-- How to Apply Card -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">How to Apply</h2>
+                        <p class="text-gray-400">
+                            To apply, please send your resume and a brief statement of interest to our community email. We also encourage you to start contributing to our GitHub repository.
+                        </p>
+                    </div>
+                    
+                    <!-- Benefits Card -->
+                    <div class="md:col-span-2 bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Benefits</h2>
+                        <p class="text-gray-400">
+                            While this is an unpaid program, successful graduates receive a certificate of completion, a letter of recommendation, and are given priority consideration for any future paid mentorship programs like GSoC or LFX.
+                        </p>
+                    </div>
+
+                    <!-- Resources Card -->
+                    <div class="md:col-span-2 bg-slate-800/50 rounded-xl p-6 border border-gray-700/50 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300">
+                        <h2 class="text-2xl font-bold text-white mb-3">Resources</h2>
+                        <ul class="list-disc list-inside text-blue-400 mt-2 space-y-1">
+                            <li><a href="https://github.com/kubestellar/kubestellar" target="_blank" class="hover:underline">KubeStellar GitHub</a></li>
+                            <li><a href="https://kubestellar.io/community" class="hover:underline">KubeStellar Community Page</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden pt-16 pb-8">
+        <!-- Dark base background -->
+        <div class="absolute inset-0 bg-[#0a0a0a]"></div>
+        
+        <!-- Starfield background -->
+        <div id="stars-container-footer" class="absolute inset-0 overflow-hidden"></div>
+        
+        <!-- Grid lines background -->
+        <div id="grid-lines-footer" class="absolute inset-0 opacity-20"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm">
+                        &copy; 2023 KubeStellar. All rights reserved. Apache 2.0 License.
+                    </p>
+                    <div class="mt-4 md:mt-0 flex flex-wrap justify-center md:justify-end gap-4 md:gap-6">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Script to generate starfield and grid lines
+        document.addEventListener('DOMContentLoaded', () => {
+            function createStarfield(container) {
+                if (!container) return;
+                for (let i = 0; i < 100; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('absolute', 'bg-white', 'rounded-full');
+                    const size = Math.random() * 1.5 + 0.5;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animation = `twinkle ${Math.random() * 5 + 3}s linear infinite alternate`;
+                    container.appendChild(star);
+                }
+            }
+
+            function createGrid(container) {
+                if (!container) return;
+                container.style.backgroundImage = 'linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px)';
+                container.style.backgroundSize = '40px 40px';
+            }
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes twinkle {
+                    0% { opacity: 0.2; }
+                    100% { opacity: 0.8; }
+                }
+            `;
+            document.head.appendChild(style);
+
+            createStarfield(document.getElementById('stars-container-nav'));
+            createStarfield(document.getElementById('stars-container-footer'));
+            createGrid(document.getElementById('grid-lines-nav'));
+            createGrid(document.getElementById('grid-lines-footer'));
+        });
+    </script>
+</body>
+</html>
